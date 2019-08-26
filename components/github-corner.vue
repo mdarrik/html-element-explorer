@@ -9,10 +9,11 @@
       width="80"
       height="80"
       viewBox="0 0 250 250"
-      style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;"
+      style="color:#fff; position: absolute; top: 0; border: 0; right: 0;"
       aria-hidden="true"
+      class="github-corner-image"
     >
-      <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" />
+      <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
       <path
         d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
         fill="currentColor"
@@ -29,7 +30,50 @@
 </template>
 
 <style scoped>
-.github-corner:hover .octo-arm {
+.github-corner-image {
+  fill: #FD6C6C;
+
+}
+.github-corner:hover > .github-corner-image, .github-corner:focus > .github-corner-image {
+  fill: #6cfdad;
+  stroke: #FD6C6C;
+  stroke-width: .3rem;
+  animation: github-fill-change 560ms ease-in-out
+}
+
+@keyframes github-fill-change {
+  0% {
+    fill: #FD6C6C;
+    stroke: none;
+  }
+  20% {
+    fill: #E08979;
+    stroke: #FFE2E2;
+    stroke-width: .06rem;
+  }
+  40% {
+    fill: #C3A686;
+    stroke: #FEC4C4;
+    stroke-width: .12rem;
+  }
+  60% {
+    fill: #A6C393;
+    stroke: #FEA7A7;
+    stroke-width: .18rem;
+  }
+  80% {
+    fill: #89E0A0;
+    stroke: #FD8989;
+    stroke-width: .24rem;
+  }
+  100% {
+    fill: #6cfdad;
+    stroke: #FD6C6C;
+    stroke-width: .3rem;
+  }
+}
+
+.github-corner:hover .octo-arm, .github-corner:focus .octo-arm {
   animation: octocat-wave 560ms ease-in-out;
 }
 @keyframes octocat-wave {
