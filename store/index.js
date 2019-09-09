@@ -1,6 +1,7 @@
-export const state =() => ({
+export const state = () => ({
+  locale: 'en',
   selectedElement: '',
-  responseHistory: [],
+  responseHistory: []
 })
 
 export const mutations = {
