@@ -12,17 +12,20 @@
         />
       </template>
     </form>
+    <selected-element v-if="selectedElement" :element="selectedElement" />
   </fragment>
 </template>
 
 <script>
 import { Fragment } from 'vue-fragment'
 import Question from '../components/question'
+import SelectedElement from '../components/selected-element'
 
 export default {
   components: {
     Fragment,
-    Question
+    Question,
+    SelectedElement
   },
   data() {
     return { locale: this.$store.state.locale }
@@ -38,6 +41,9 @@ export default {
       return this.$store.state.responseHistory[
         this.$store.state.responseHistory.length - 1
       ]
+    },
+    selectedElement() {
+      return this.$store.state.selectedElement
     }
   },
   created() {
@@ -45,15 +51,15 @@ export default {
   },
   destroyed() {
     this.$store.commit('clearResponseHistory')
+    this.$store.commit('deselectElement')
   },
   methods: {
     responseSelected(selectedOption, index) {
-      console.log(selectedOption)
       if (
         selectedOption.question !== null &&
         selectedOption.question !== undefined
       ) {
-        console.log(selectedOption.question)
+        this.$store.commit('deselectElement')
         this.$store.commit('resetResponseHistoryToIndex', index)
         this.$store.commit('addResponseToHistory', selectedOption.question)
       } else if (
