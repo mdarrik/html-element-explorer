@@ -26,7 +26,6 @@ export default {
   methods: {
     optionSelected() {
       if (this.selection != null) {
-        console.log(this.selection)
         this.$emit('change', this.selection, this.index)
       }
     }
@@ -34,8 +33,8 @@ export default {
 }
 </script>
 <style>
-  .element-question {
-    display: block;
-    margin-bottom: 2rem;
-  }
+.element-question {
+  display: block;
+  margin-bottom: 2rem;
+}
 </style>

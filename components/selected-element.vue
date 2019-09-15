@@ -1,14 +1,16 @@
 <template>
   <article>
-    <h2>{{element.elementName}}</h2>
+    <h2>{{ element.elementName }}</h2>
     <dl>
-      <dt>{{element.elementTag.label}}</dt>
-      <dd><pre><code>{{element.elementTag.value}}</code></pre></dd>
-      <dt>{{element.description.label}}</dt>
-      <dd>{{element.description.value}}</dd>
-      <dt>{{element.accessibilityNotes.label}}</dt>
+      <dt>{{ element.elementTag.label }}</dt>
+      <dd>
+        <pre><code>{{element.elementTag.value}}</code></pre>
+      </dd>
+      <dt>{{ element.description.label }}</dt>
+      <dd>{{ element.description.value }}</dd>
+      <dt>{{ element.accessibilityNotes.label }}</dt>
       <dd v-for="note in element.accessibilityNotes.value" :key="note">
-        {{note}}
+        {{ note }}
       </dd>
     </dl>
   </article>
