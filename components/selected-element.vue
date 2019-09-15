@@ -13,6 +13,7 @@
         {{ note }}
       </dd>
     </dl>
+    <a :href="element.mdnLink.value">{{ element.mdnLink.label }}</a>
   </article>
 </template>
 <script>
