@@ -20,5 +20,7 @@ module.exports = {
   // add your custom rules here
   rules: {
     "prettier/prettier": "warn",
+    "standard/computed-property-even-spacing": "off",
+    "eqeqeq": ["warn", "smart"],
   }
 }

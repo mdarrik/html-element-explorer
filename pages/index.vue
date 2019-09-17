@@ -1,68 +1,74 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        html-element-explorer
-      </h1>
-      <h2 class="subtitle">
-        A project to help you decide which semantic HTML element to use.
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+  <fragment>
+    <h1>HTML Element Explorer</h1>
+    <p>A project to help you decide which semantic HTML element to use.</p>
+    <form>
+      <template v-for="(question, index) in responseHistory">
+        <question
+          :key="index"
+          :question="question"
+          :index="index"
+          @change="responseSelected"
+        />
+      </template>
+    </form>
+    <selected-element v-if="selectedElement" :element="selectedElement" />
+  </fragment>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import { Fragment } from 'vue-fragment'
+import Question from '../components/question'
+import SelectedElement from '../components/selected-element'
 
 export default {
   components: {
-    Logo
+    Fragment,
+    Question,
+    SelectedElement
+  },
+  data() {
+    return { locale: this.$store.state.locale }
+  },
+  computed: {
+    initialQuestion() {
+      return this.$store.state[this.locale].initialQuestion
+    },
+    responseHistory() {
+      return this.$store.state.responseHistory
+    },
+    currentQuestion() {
+      return this.$store.state.responseHistory[
+        this.$store.state.responseHistory.length - 1
+      ]
+    },
+    selectedElement() {
+      return this.$store.state.selectedElement
+    }
+  },
+  created() {
+    this.$store.commit('addResponseToHistory', this.initialQuestion)
+  },
+  destroyed() {
+    this.$store.commit('clearResponseHistory')
+    this.$store.commit('deselectElement')
+  },
+  methods: {
+    responseSelected(selectedOption, index) {
+      if (
+        selectedOption.question !== null &&
+        selectedOption.question !== undefined
+      ) {
+        this.$store.commit('deselectElement')
+        this.$store.commit('resetResponseHistoryToIndex', index)
+        this.$store.commit('addResponseToHistory', selectedOption.question)
+      } else if (
+        selectedOption.element !== null &&
+        selectedOption.element !== undefined
+      ) {
+        this.$store.commit('selectElement', selectedOption.element)
+      }
+    }
   }
 }
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
